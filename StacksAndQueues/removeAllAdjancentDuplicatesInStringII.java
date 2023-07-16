@@ -1,27 +1,25 @@
 package DSAsheetByArsh.StacksAndQueues;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class removeAllAdjancentDuplicatesInStringII {
     public static String removeDuplicates(String s, int k) {
-        int i = 0;
-        int n = s.length();
-        int[] count = new int[n];
-        char[] stack = s.toCharArray();
-        for (int j = 0; j < n; ++j, ++i) {
-            stack[i] = stack[j];
-            if (i > 0 && stack[i - 1] == stack[j]) {
-                count[i] = count[i - 1] + 1;
-            } else {
-                count[i] = 1;
+        Stack<int[]> stack = new Stack<>();
+        for(char ch: s.toCharArray()){
+            if(!stack.isEmpty() && stack.peek()[0] == ch){
+                stack.peek()[1]++;
             }
-            if (count[i] == k)
-                i -= k;
+            else stack.push(new int[]{ch, 1});
+            if(stack.peek()[1] == k) stack.pop();
         }
-        return new String(stack, 0, i);
+        StringBuilder sb = new StringBuilder();
+        while(!stack.isEmpty()){
+            int top[] = stack.pop();
+            while(top[1]-- > 0){
+                sb.append((char) top[0]);
+            }
+        }
+        return sb.reverse().toString();
     }
 
     public static void main(String[] args) {
