@@ -32,8 +32,8 @@ public class maxWidthOfBT {
             int levelLength = queue.size();
             int levelStart = queue.peek().getValue();
             int index = 0;
-
             int i = 0;
+
             while (i < levelLength) {
                 Pair<TreeNode, Integer> pair = queue.poll();
                 TreeNode node = pair.getKey();
@@ -46,7 +46,6 @@ public class maxWidthOfBT {
                 if (node.right != null) {
                     queue.add(new Pair<>(node.right, 2 * index + 1));
                 }
-
                 i++;
             }
             maxWidth = Math.max(maxWidth, index - levelStart + 1);
